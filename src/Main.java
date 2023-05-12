@@ -1,9 +1,14 @@
 import builders.StudentsBuilder;
+import entities.Student;
+
+import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
         var allStudents = StudentsBuilder.getAllStudents();
+
+        getApprovedStudents(allStudents);
 
         // Agora vamos as atividades
         /*
@@ -29,5 +34,14 @@ public class Main {
             - Exiba os dados nesse formato: <posicao> - <código> - <nome> : Média = <nota>
 
          */
+    }
+
+    static void getApprovedStudents(List<Student> studentsList) {
+        for (Student s : studentsList) {
+            var average = (s.getTestOne() + s.getTestTwo() + s.getTestThree())/3;
+            if (average >= 7) {
+                System.out.printf("%d - %s : Média = %f\n", s.getCode(), s.getName(), average);
+            }
+        }
     }
 }
