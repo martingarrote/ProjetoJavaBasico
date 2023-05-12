@@ -9,6 +9,7 @@ public class Main {
         var allStudents = StudentsBuilder.getAllStudents();
 
         getApprovedStudents(allStudents);
+        getReprovedStudents(allStudents);
 
         // Agora vamos as atividades
         /*
@@ -41,6 +42,16 @@ public class Main {
             var average = (s.getTestOne() + s.getTestTwo() + s.getTestThree())/3;
             if (average >= 7) {
                 System.out.printf("%d - %s : Média = %f\n", s.getCode(), s.getName(), average);
+            }
+        }
+    }
+
+    static void getReprovedStudents(List<Student> studentList) {
+        for (Student s : studentList) {
+            var average = (s.getTestOne() + s.getTestTwo() + s.getTestThree())/3;
+            var missing = 7 - average;
+            if (average < 7) {
+                System.out.printf("%d - %s : Média = %f (Faltou = %f)\n", s.getCode(), s.getName(), average, missing);
             }
         }
     }
