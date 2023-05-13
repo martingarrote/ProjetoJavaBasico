@@ -2,6 +2,7 @@ import builders.StudentsBuilder;
 import entities.Student;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 public class Main {
 
@@ -17,32 +18,33 @@ public class Main {
         for (Student s : studentsList) {
             var average = (s.getTestOne() + s.getTestTwo() + s.getTestThree())/3;
             if (average >= 7) {
-                System.out.printf("%d - %s : Média = %f\n", s.getCode(), s.getName(), average);
+                System.out.printf("%d - %s : Média = %.2f\n", s.getCode(), s.getName(), average);
             }
         }
     }
 
-    static void getReprovedStudents(List<Student> studentList) {
-        for (Student s : studentList) {
+    static void getReprovedStudents(List<Student> studentsList) {
+        for (Student s : studentsList) {
             var average = (s.getTestOne() + s.getTestTwo() + s.getTestThree())/3;
             var missing = 7 - average;
             if (average < 7) {
-                System.out.printf("%d - %s : Média = %f (Faltou = %f)\n", s.getCode(), s.getName(), average, missing);
+                System.out.printf("%d - %s : Média = %.2f (Faltou = %.2f)\n", s.getCode(), s.getName(), average, missing);
             }
         }
     }
 
-    static void getMaxGradeStudents(List<Student> studentList) {
-        var count = 0;
-        for (Student s : studentList) {
-            var average = (s.getTestOne() + s.getTestTwo() + s.getTestThree())/3;
-            if (average == 10) {
-                count++;
+    static void getMaxGradeStudents(List<Student> studentsList) {
+        Predicate<Student> maxGrade = (Student s) -> {
+            return (s.getTestOne() == 10) || (s.getTestTwo() == 10) || (s.getTestThree() == 10);
+        };
+        var studentsWithMaxGrade = studentsList.stream().filter(maxGrade).toList();
+        if (studentsWithMaxGrade.size() > 0) {
+            System.out.println("Estudantes que obtiveram nota máxima:");
+            for (Student s : studentsWithMaxGrade) {
                 System.out.printf("%d - %s\n", s.getCode(), s.getName());
             }
-        }
-        if (count == 0) {
-            System.out.println("Nenhum estudante alcançou a nota máxima.");
+        } else {
+            System.out.println("Nenhum estudante obteve nota máxima");
         }
     }
 }
