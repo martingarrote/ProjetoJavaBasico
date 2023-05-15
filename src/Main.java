@@ -119,9 +119,22 @@ public class Main {
         }
     }
 
+    static int compareHighestStudentGrades(Student s1, Student s2) {
+        var s1Highest = getHighestGrade(s1);
+        var s2Highest = getHighestGrade(s2);
+
+        if (s1Highest > s2Highest) {
+            return 1;
+        } else if (s1Highest < s2Highest) {
+            return -1;
+        }
+        return 0;
+    }
+
     static int compareStudentsAverage(Student s1, Student s2) {
         var s1Average = (s1.getTestOne() + s1.getTestTwo() + s1.getTestThree()) / 3;
         var s2Average = (s2.getTestOne() + s2.getTestTwo() + s2.getTestThree()) / 3;
+
         if (s1Average > s2Average) {
             return 1;
         } else if (s1Average < s2Average) {
