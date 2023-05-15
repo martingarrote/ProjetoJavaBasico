@@ -1,10 +1,7 @@
 import builders.StudentsBuilder;
 import entities.Student;
 
-import java.sql.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.function.Predicate;
 
 public class Main {
@@ -16,6 +13,7 @@ public class Main {
         getReprovedStudents(allStudents);
         getMaxGradeStudents(allStudents);
         getLowestGradeStudents(allStudents);
+        getStudentsAverage(allStudents);
     }
 
     static void getApprovedStudents(List<Student> studentsList) {
@@ -78,6 +76,28 @@ public class Main {
         }
         for (Student s : lowestGradeStudents) {
             System.out.printf("%d - %s : Nota: %.2f\n", s.getCode(), s.getName(), getLowestGrade(s));
+        }
+    }
+
+    static int compareStudentsAverage(Student s1, Student s2) {
+        var s1Average = (s1.getTestOne() + s1.getTestTwo() + s1.getTestThree()) / 3;
+        var s2Average = (s2.getTestOne() + s2.getTestTwo() + s2.getTestThree()) / 3;
+        if (s1Average > s2Average) {
+            return 1;
+        } else if (s1Average < s2Average) {
+            return -1;
+        }
+        return 0;
+    }
+
+    static void getStudentsAverage(List<Student> studentsList) {
+        var orderedStudentsList = new ArrayList<>(studentsList);
+        orderedStudentsList.sort(Main::compareStudentsAverage);
+
+        for (Student s : orderedStudentsList) {
+            var average = (s.getTestOne() + s.getTestTwo() + s.getTestThree()) / 3;
+            System.out.printf("Posição %d - %d - %s : Média = %.2f\n",
+                    orderedStudentsList.indexOf(s) + 1, s.getCode(), s.getName(), average);
         }
     }
 }
