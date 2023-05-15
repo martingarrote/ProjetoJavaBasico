@@ -78,6 +78,17 @@ public class Main {
         }
     }
 
+    static float getHighestGrade(Student s) {
+        var highestGrade = s.getTestOne();
+        if (s.getTestTwo() > highestGrade) {
+            highestGrade = s.getTestTwo();
+        }
+        if (s.getTestThree() > highestGrade) {
+            highestGrade = s.getTestThree();
+        }
+        return highestGrade;
+    }
+
     static float getLowestGrade(Student s) {
         var lowestGrade = s.getTestOne();
         if (s.getTestTwo() < lowestGrade) {
