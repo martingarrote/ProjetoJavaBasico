@@ -123,9 +123,9 @@ public class Main {
         var s1Highest = getHighestGrade(s1);
         var s2Highest = getHighestGrade(s2);
 
-        if (s1Highest > s2Highest) {
+        if (s1Highest < s2Highest) {
             return 1;
-        } else if (s1Highest < s2Highest) {
+        } else if (s1Highest > s2Highest) {
             return -1;
         }
         return 0;
