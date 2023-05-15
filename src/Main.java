@@ -9,11 +9,40 @@ public class Main {
     public static void main(String[] args) {
         var allStudents = StudentsBuilder.getAllStudents();
 
-        getApprovedStudents(allStudents);
-        getReprovedStudents(allStudents);
-        getMaxGradeStudents(allStudents);
-        getLowestGradeStudents(allStudents);
-        getStudentsAverage(allStudents);
+        var userInput = new Scanner(System.in);
+
+        var working = true;
+
+        while (working) {
+            System.out.println(
+                    """
+                            \n1 - Obter os estudantes que foram aprovados, ou seja, obtiveram média igual ou superior a 7.0
+                            2 - Obter os estudantes que foram reprovados, ou seja, não alcançaram a média
+                            3 - Obter os estudantes que obtiveram nota máxima
+                            4 - Obter o estudante que obteve a menor nota
+                            5 - Obter o top 3 de estudantes com maiores notas
+                            6 - Obter o top 3 de estudantes com menores notas
+                            7 - Obter a média de todos os estudantes em ordem decrescente
+                            8 - Sair
+                            """
+            );
+            System.out.println("O que você deseja fazer?");
+
+            var actionNumber = userInput.nextInt();
+            switch (actionNumber) {
+                case 1 -> getApprovedStudents(allStudents);
+                case 2 -> getReprovedStudents(allStudents);
+                case 3 -> getMaxGradeStudents(allStudents);
+                case 4 -> getLowestGradeStudents(allStudents);
+                case 5, 6 -> System.out.println("Não implementado");
+                case 7 -> getStudentsAverage(allStudents);
+                case 8 -> {
+                    System.out.println("Encerrando...");
+                    working = false;
+                }
+                default -> System.out.println("Número inválido, tente novamente.");
+            }
+        }
     }
 
     static void getApprovedStudents(List<Student> studentsList) {
